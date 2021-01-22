@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '1add41073b4a7629c0c00544d0a9fcfc0c6f5bf5',
     'name' => 'geraldofjunior/function-point-calculator',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'geraldofjunior/function-point-calculator' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '1add41073b4a7629c0c00544d0a9fcfc0c6f5bf5',
     ),
     'myclabs/deep-copy' => 
     array (
