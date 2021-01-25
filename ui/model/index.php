@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--
+    <link href="ui\style\home.css" rel="stylesheet" />
+    <link href="ui\style\button.css" rel="stylesheet" />
+    <link href="ui\style\card.css" rel="stylesheet" /> 
+    -->
     <script src="https://kit.fontawesome.com/6e2301b883.js" crossorigin="anonymous"></script>
 </head>
 <body>

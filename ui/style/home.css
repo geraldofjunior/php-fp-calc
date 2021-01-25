@@ -6,26 +6,41 @@ body {
     background-color: white;
     width: 100%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
 }
 
 .main {
     display: flex;
 }
 
+/* Sidebar */
+
 .sidebar {
     width: 30%;
     background-color: #40598c;
 }
-.menu {
+.sidebar-menu {
     margin: 5px;
     padding: 5px;
 }
 
-.menu__item {
+.sidebar-menu__list {
+    list-style: none;
+}
+
+.sidebar-menu-item {
     color: white;
     cursor: pointer;
-
 }
+.sidebar-menu-item__icon {
+    margin-right: 5px;
+}
+
+.sidebar-menu-item__text {
+    text-decoration: none; 
+}
+
+/* Content area */
 
 .content {
     /* Take the remaining width */
@@ -33,3 +48,4 @@ body {
     /* Make it scrollable */
     overflow: auto;
 }
+
