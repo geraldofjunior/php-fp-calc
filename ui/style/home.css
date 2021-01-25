@@ -1,0 +1,35 @@
+/* The body tag is used to set global values that can be overwritten anytime is needed,
+   but I don't want to write it over and over again */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.main {
+    display: flex;
+}
+
+.sidebar {
+    width: 30%;
+    background-color: #40598c;
+}
+.menu {
+    margin: 5px;
+    padding: 5px;
+}
+
+.menu__item {
+    color: white;
+    cursor: pointer;
+
+}
+
+.content {
+    /* Take the remaining width */
+    flex: 1;
+    /* Make it scrollable */
+    overflow: auto;
+}
