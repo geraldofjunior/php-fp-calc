@@ -1,0 +1,6 @@
+.content {
+    /* Take the remaining width */
+    flex: 1;
+    /* Make it scrollable */
+    overflow: auto;
+}

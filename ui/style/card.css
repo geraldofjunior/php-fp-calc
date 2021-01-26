@@ -1,24 +1,38 @@
+.content a, .controls a {
+    text-decoration: none;
+}
 .card {
     width: 400px;
-    height: 229px;
+    min-height: 70px;
     border-radius: 20px;
     background-color: #40598c;
     box-shadow: 0px 3px 6px #707070;
     color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 10px;
+    padding: 10px 20px;
+    flex-flow: wrap;
 }
 
 .card__title {
     font-size: 24px;
     font-weight: bold;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .card__info {
     font-size: 20px;
+    max-width: 49%;
+    position: relative;
+    float: left;
 }
 
 .card__function-points {
     font-weight: bold;
     color: #f0a500;
     font-size: 25px;
+    max-width: 40%;
+    position: relative;
+    float: right;
 }

@@ -13,39 +13,5 @@ body {
     display: flex;
 }
 
-/* Sidebar */
 
-.sidebar {
-    width: 30%;
-    background-color: #40598c;
-}
-.sidebar-menu {
-    margin: 5px;
-    padding: 5px;
-}
-
-.sidebar-menu__list {
-    list-style: none;
-}
-
-.sidebar-menu-item {
-    color: white;
-    cursor: pointer;
-}
-.sidebar-menu-item__icon {
-    margin-right: 5px;
-}
-
-.sidebar-menu-item__text {
-    text-decoration: none; 
-}
-
-/* Content area */
-
-.content {
-    /* Take the remaining width */
-    flex: 1;
-    /* Make it scrollable */
-    overflow: auto;
-}
 
