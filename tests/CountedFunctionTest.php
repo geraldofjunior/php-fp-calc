@@ -1,11 +1,15 @@
 <?php
-require "entities/counted_function/CountedFunction.php";
+require "entities\counted_function\CountedFunction.php";
 
 use Point_Calc_Php\Entities\Counted_Function\CountedFunction as CountedFunction;
 //use Point_Calc_Php\Entities\Counted_Function\ICountedFunction as ICountedFunction;
 use PHPUnit\Framework\TestCase;
 
 class CountedFunctionTest extends TestCase {
+    public function test_if_the_test_is_even_running() {
+        $this->assertEquals(1,1);
+    }
+
     public function testInterface() {
         $function = new CountedFunction("Test Function");
         $this->assertEquals(1,1);

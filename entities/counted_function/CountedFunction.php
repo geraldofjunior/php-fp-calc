@@ -1,7 +1,8 @@
 <?php
 namespace Point_Calc_Php\Entities\Counted_Function;
 
-require_once "entities/counted_function/ICountedFunction.php";
+require "entities\counted_function\ICountedFunction.interface.php";
+
 class CountedFunction implements ICountedFunction {
     protected string $name = "";
     protected int $functionPoints = 0;
