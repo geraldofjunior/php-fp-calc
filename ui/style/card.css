@@ -2,16 +2,20 @@
     text-decoration: none;
 }
 .card {
-    width: 400px;
-    min-height: 70px;
     border-radius: 20px;
-    background-color: #40598c;
     box-shadow: 0px 3px 6px #707070;
     color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 10px;
     padding: 10px 20px;
     flex-flow: wrap;
+    display: inline-block;
+}
+
+.card--project {
+    width: 400px;
+    min-height: 70px;
+    background-color: #40598c;
 }
 
 .card__title {
@@ -32,7 +36,18 @@
     font-weight: bold;
     color: #f0a500;
     font-size: 25px;
-    max-width: 40%;
     position: relative;
     float: right;
+}
+
+.card--info {
+    width: 250px;
+    min-height: 80px;
+    padding-top: 15px;
+    background-color: #22646d;
+}
+
+.card--center {
+    width: 100%;
+    text-align: center;
 }
