@@ -19,58 +19,85 @@
 
     </div>
 
-    <table class="function-list">
+    <div class="function-list">
 
-        <thead class="function-list--header">
+        <div class="function-list--header">
+            <div class="function-list__name">Nome</div>
+            <div class="function-list__type">Tipo</div>
+            <div class="function-list__complexity">Complexidade</div>
+            <div class="function-list__contribution"><center>PF</center></div>
+        </div>
 
-            
-                <td class="function-list__name">Nome</td>
-                <td class="function-list__type">Tipo</td>
-                <td class="function-list__complexity">Complexidade</td>
-                <td class="function-list__contribution"><center>PF</center></td>
-            
+        <div class="function-list__row">
+            <div class="function-list__name">Nome</div>
+            <div class="function-list__type">Tipo</div>
+            <div class="function-list__complexity">Complexidade</div>
+            <div class="function-list__contribution"><center>PF</center></div>
+        </div>
 
-        </thead>
+        <div class="function-list__row">
+            <div class="function-list__name">Nome</div>
+            <div class="function-list__type">Tipo</div>
+            <div class="function-list__complexity">Complexidade</div>
+            <div class="function-list__contribution"><center>PF</center></div>
+        </div>
 
-        <tbody>
+        <div class="function-list__row">
+            <div class="function-list__name">Nome</div>
+            <div class="function-list__type">Tipo</div>
+            <div class="function-list__complexity">Complexidade</div>
+            <div class="function-list__contribution"><center>PF</center></div>
+        </div>
 
-            <tr>
-                <td class="function-list__name">Nome</td>
-                <td class="function-list__type">Tipo</td>
-                <td class="function-list__complexity">Complexidade</td>
-                <td class="function-list__contribution">PF</td>
-            </tr>
-
-            <tr>
-                <td class="function-list__name">Nome</td>
-                <td class="function-list__type">Tipo</td>
-                <td class="function-list__complexity">Complexidade</td>
-                <td class="function-list__contribution">PF</td>
-            </tr>
-
-            <tr>
-                <td class="function-list__name">Nome</td>
-                <td class="function-list__type">Tipo</td>
-                <td class="function-list__complexity">Complexidade</td>
-                <td class="function-list__contribution">PF</td>
-            </tr>
-
-            <tr>
-                <td class="function-list__name">Nome</td>
-                <td class="function-list__type">Tipo</td>
-                <td class="function-list__complexity">Complexidade</td>
-                <td class="function-list__contribution">PF</td>
-            </tr>
-
-            <tr>
-                <td class="function-list__name">Nome</td>
-                <td class="function-list__type">Tipo</td>
-                <td class="function-list__complexity">Complexidade</td>
-                <td class="function-list__contribution">PF</td>
-            </tr>
-
-        </tbody>
-
-    </table>
+        <div class="function-list__row">
+            <div class="function-list__name">Nome</div>
+            <div class="function-list__type">Tipo</div>
+            <div class="function-list__complexity">Complexidade</div>
+            <div class="function-list__contribution"><center>PF</center></div>
+        </div>
     
+    </div>
+    <!--
+
+    <table class="function-list">
+        <thead class="function-list--header">
+            <td class="function-list__name">Nome</td>
+            <td class="function-list__type">Tipo</td>
+            <td class="function-list__complexity">Complexidade</td>
+            <td class="function-list__contribution"><center>PF</center></td>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="function-list__name">Nome</td>
+                <td class="function-list__type">Tipo</td>
+                <td class="function-list__complexity">Complexidade</td>
+                <td class="function-list__contribution">PF</td>
+            </tr>
+            <tr>
+                <td class="function-list__name">Nome</td>
+                <td class="function-list__type">Tipo</td>
+                <td class="function-list__complexity">Complexidade</td>
+                <td class="function-list__contribution">PF</td>
+            </tr>
+            <tr>
+                <td class="function-list__name">Nome</td>
+                <td class="function-list__type">Tipo</td>
+                <td class="function-list__complexity">Complexidade</td>
+                <td class="function-list__contribution">PF</td>
+            </tr>
+            <tr>
+                <td class="function-list__name">Nome</td>
+                <td class="function-list__type">Tipo</td>
+                <td class="function-list__complexity">Complexidade</td>
+                <td class="function-list__contribution">PF</td>
+            </tr>
+            <tr>
+                <td class="function-list__name">Nome</td>
+                <td class="function-list__type">Tipo</td>
+                <td class="function-list__complexity">Complexidade</td>
+                <td class="function-list__contribution">PF</td>
+            </tr>
+        </tbody>
+    </table>
+    -->
 </main>
