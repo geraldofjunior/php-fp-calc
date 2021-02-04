@@ -1,5 +1,22 @@
 <link href="ui\style\info.css" rel="stylesheet" />
 <main class="content">
+
+    <h2 class="page-title">
+        Projeto blego blego
+    </h2>
+
+    <form class="project-config">
+        
+        Tipo de projeto<br />
+        <input type="radio" name="project-type" class="project-config__project-type" value="1" /> Desenvolvimento
+        <input type="radio" name="project-type" class="project-config__project-type" value="2" /> Melhoria
+        <input type="radio" name="project-type" class="project-config__project-type" value="3" /> Aplicação
+
+        
+        
+        
+    </form>
+
     <div class="overview">
         
         <div class="card card--info">

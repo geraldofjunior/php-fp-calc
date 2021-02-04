@@ -8,6 +8,8 @@ $addr = "ui/model/pages/";
 if (isset($_GET['p'])) {
     if (!is_nan($_GET['p'])) {
         $addr .= "project.php";
+    } else if (!is_nan($_GET['f'])) {
+        $addr .= "function.php";
     } else {
         $addr .= "main.php";
     }
