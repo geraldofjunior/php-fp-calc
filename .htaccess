@@ -1,0 +1,3 @@
+RewriteEngine on
+
+ReWriteRule ^project/([0-9]+)$ index.php?p=$2 [nc]

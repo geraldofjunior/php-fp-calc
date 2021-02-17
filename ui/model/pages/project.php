@@ -11,10 +11,6 @@
         <input type="radio" name="project-type" class="project-config__project-type" value="1" /> Desenvolvimento
         <input type="radio" name="project-type" class="project-config__project-type" value="2" /> Melhoria
         <input type="radio" name="project-type" class="project-config__project-type" value="3" /> Aplicação
-
-        
-        
-        
     </form>
 
     <div class="overview">

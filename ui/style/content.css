@@ -4,3 +4,9 @@
     /* Make it scrollable */
     overflow: auto;
 }
+
+.page-title {
+    font-size: large;
+    color: #f0a500;
+    font-weight: bold;
+}
