@@ -28,6 +28,7 @@ class ComposerStaticInit58f77f48c1332d1ca5598b8bc3a84cac
         'P' => 
         array (
             'Prophecy\\' => 9,
+            'Point_Calc_Php\\' => 15,
             'PhpParser\\' => 10,
         ),
         'D' => 
@@ -55,6 +56,10 @@ class ComposerStaticInit58f77f48c1332d1ca5598b8bc3a84cac
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
+        ),
+        'Point_Calc_Php\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'PhpParser\\' => 
         array (

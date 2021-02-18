@@ -1,6 +1,20 @@
 {
     "name": "geraldofjunior/function-point-calculator",
-    "description": "This app will calculate function points for a given project",
+    "description": "Function Point Calculator",
+    "minimum-stability": "dev",
+    "license": "apache",
+    "authors": [
+        {
+            "name": "Geraldo de Figueiredo Júnior",
+            "email": "geraldofjunior@gmail.com",
+            "homepage": "http://www.contrategeraldo.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Point_Calc_Php\\": "src/"
+        }
+    },
     "require": {
         "php": ">=8.0"
     },

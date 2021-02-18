@@ -2,11 +2,11 @@
 namespace Point_Calc_Php;
 
 
-include "ui/model/components/head.html";
+include "src/ui/model/components/head.php";
 
-include "ui/model/components/sidebar.php";
+include "src/ui/model/components/sidebar.php";
 
-$addr = "ui/model/pages/";
+$addr = "src/ui/model/pages/";
 if (isset($_GET['p'])) {
     if (isset($_GET['p'])) {
         $addr .= "project.php";
@@ -21,8 +21,8 @@ if (isset($_GET['p'])) {
 
 include $addr;
 
-include "ui/model/components/buttons.html";
+include "src/ui/model/components/buttons.html";
 
-include "ui/model/components/footer.html";
+include "src/ui/model/components/footer.html";
 
 ?>
