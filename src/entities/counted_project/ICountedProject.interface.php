@@ -8,15 +8,15 @@ interface ICountedProject {
     public function addFunction(ICountedFunction $function);
     public function removeFunction(ICountedFunction $function);
     public function getFunction(string $name):ICountedFunction;
-    public function getAllFunctions();
+    public function getAllFunctions() : array;
     public function getProjectType():int;
     public function setprojectType(int $projectType);
-    public function getPrice();
-    public function getEstimatedTime();
-    public function getProjectTotalFunctionPoints();
+    public function getEstimatedPrice(): float;
+    public function getEstimatedTime(): int;
+    public function getEstimatedFunctionPoints(): int;
     public function getAdjustmentFactors():IAdjustmentFactor;
-    public function addAdjustmentFactor(IAdjustmentFactor $factor);
-    public function removeAdjustmentFactor(IAdjustmentFactor $factor);
+    public function addAdjustmentFactor(int $type, int $value):void;
+    public function removeAdjustmentFactor(int $type);
     public function getName():string;
     public function setName(string $name);
 }

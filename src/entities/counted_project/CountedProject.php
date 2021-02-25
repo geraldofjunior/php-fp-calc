@@ -8,58 +8,58 @@ use Point_Calc_Php\Entities\Counted_Function\ICountedFunction;
 
 class CountedProject implements ICountedProject {
     private string $name;
-    private array $function = array();
-    private array $adjustmentFactor = array();
+    private $function = [];
+    private IAdjustmentFactor $adjustmentFactor;
     private int $estimatedTime = 0;
     private float $estimatedPrice = 0;
     private int $estimatedCount = 0;
     private int $projectType = 0;
 
-    public function addFunction(ICountedFunction $function) {
+    public function addFunction(ICountedFunction $function) : void {
         $this->function[] = $function;
-
     }
 
-    public function removeFunction(ICountedFunction $function) {}
+    public function removeFunction(ICountedFunction $function) : void {}
     
     public function getFunction(string $name):ICountedFunction {
         return new CountedFunction("New function");
     }
 
-    public function getAllFunctions() {
+    public function getAllFunctions() : array {
         return $this->function;
-    
     }
 
     public function getProjectType():int {
-        return 0;
+        return $this->projectType;
     }
 
-    public function setprojectType(int $projectType) {
+    public function setprojectType(int $projectType) : void {
         $this->projectType = $projectType;
     }
 
-    public function getPrice() {
+    public function getEstimatedPrice() : float {
         return $this->estimatedPrice;
     }
 
-    public function getEstimatedTime() {
+    public function getEstimatedTime() : int {
         return $this->estimatedTime;
     }
 
-    public function getProjectTotalFunctionPoints() {
+    public function getEstimatedFunctionPoints() : int {
         return $this->estimatedCount;
     }
 
     public function getAdjustmentFactors():IAdjustmentFactor {
-        return new AdjustmentFactor();
+        return $this->adjustmentFactor;
     }
 
-    public function addAdjustmentFactor(IAdjustmentFactor $factor) {
-        $this->adjustmentFactor[] = $factor;
+    public function addAdjustmentFactor(int $type, int $value) : void {
+        $this->adjustmentFactor->addInfluenceFactor($type, $value);
     }
 
-    public function removeAdjustmentFactor(IAdjustmentFactor $factor) {}
+    public function removeAdjustmentFactor(int $type) : void {
+        $this->adjustmentFactor->removeInfluenceFactor($type);
+    }
     
     public function getName():string {
         return $this->name;
@@ -80,6 +80,10 @@ class CountedProject implements ICountedProject {
     private function calculateFunctionPoints() {
         $this->estimatedCount = 0;
 
+    }
+
+    public function getProjectTotalFunctionPoints(): int {
+        return $this->estimatedCount;        
     }
 }
 ?>

@@ -1,6 +1,4 @@
-
-
-<link href="ui\style\info.css" rel="stylesheet" />
+<link href="http://<?=$_SERVER['SERVER_NAME']?>/php-fp-calc/src/ui/style/info.css" rel="stylesheet" />
 <main class="content">
 
     <h2 class="page-title">
