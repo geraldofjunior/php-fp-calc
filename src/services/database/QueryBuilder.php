@@ -1,5 +1,5 @@
 <?php
-namespace Point_Calc_Php\services;
+namespace Point_Calc_Php\services\database;
 
 class QueryBuilder implements IQueryBuilder {
 
@@ -65,7 +65,7 @@ class QueryBuilder implements IQueryBuilder {
         foreach ($clausules as $key => $clausule) {
             if (isset($this->params[$key])) {
                 $value = $this->params[$key];
-                if ()
+                // if ()
             }
         }
     }
