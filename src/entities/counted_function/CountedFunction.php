@@ -4,6 +4,7 @@ namespace Point_Calc_Php\Entities\Counted_Function;
 require "entities\counted_function\ICountedFunction.interface.php";
 
 class CountedFunction implements ICountedFunction {
+    protected int $functionId;
     protected string $name = "";
     protected int $functionPoints = 0;
     protected int $complexity = 0;
@@ -45,5 +46,8 @@ class CountedFunction implements ICountedFunction {
         $this->name = $name;
     }
 
+    public function getFunctionId() : int {
+        return $this->functionId;
+    }
 }
 ?>

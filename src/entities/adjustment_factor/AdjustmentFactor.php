@@ -44,6 +44,20 @@ class AdjustmentFactor implements IAdjustmentFactor {
         } 
         return $influence;
     }
+
+    public function setInfluenceFactors(array $factors) : void {
+        foreach ($this->influenceFactors as $factor) {}
+    }
+
+    public function getInfluenceScore() : int {
+        return $this->influenceScore;
+    }
+
+    private function calculateInfluenceScore() : int {
+        // TODO: implement this
+        $score = 0;
+        return $score;
+    }
 }
 
 ?>

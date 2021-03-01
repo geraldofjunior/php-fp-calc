@@ -1,7 +1,7 @@
 <?php
 namespace Point_Calc_Php\Enums;
 
-abstract class InfluenceType {
+abstract class InfluenceType extends BasicEnum {
     public const DATA_EXCHANGE = 1;
     public const DISTRIBUTED_COMPUTING = 2;
     public const PERFORMANCE = 3;

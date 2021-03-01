@@ -19,5 +19,6 @@ interface ICountedProject {
     public function removeAdjustmentFactor(int $type);
     public function getName():string;
     public function setName(string $name);
+    public function setAdjustmentFactors(array $influences);
 }
 ?>
