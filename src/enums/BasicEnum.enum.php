@@ -2,6 +2,8 @@
 namespace Point_Calc_Php\Enums;
 
 /**
+ * This class provides some functionality for Enum classes on PHP
+ * 
  * @author Brian Cline
  * @source https://stackoverflow.com/questions/254514/enumerations-on-php/254543#254543
  */

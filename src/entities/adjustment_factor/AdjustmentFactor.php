@@ -8,24 +8,38 @@ class AdjustmentFactor implements IAdjustmentFactor {
     public function __construct() {
     }
 
-    public function addInfluenceFactor($type, $value): void {
-        $_value = $value; 
-        if ($type > 0 && $type <= 14) {
-            if ($_value > 0 && $_value <= 5) {
-                if ($_value > 5) {
-                    $_value = 5;    
-                }
-                $this->influenceFactors[$type] = $_value;
-                $this->influenceScore += $_value;
-            }
-        }    
+    public function addInfluenceFactor($type, ?int $value): void {
+        if ($type instanceof InfluenceFactor) {
+            $this->addInfluenceFactorByObject($type);
+        } else {
+            $this->addInfluenceFactorByValue($type, $value);
+        }
+    }
+
+    private function addInfluenceFactorByValue(int $type, ?int $value): void {
+        if (!isset($this->influenceFactors[$type])) {
+            $factor = new InfluenceFactor($type, $value);
+            $this->influenceFactors[$type] = $factor;
+        } else if (isset($value)) {
+            $this->influenceFactors[$type]->setInfluenceValue($value);
+        }
+    }
+
+    private function addInfluenceFactorByObject(InfluenceFactor $factor): void {
+        $type = $factor->getInfluenceType();
+        $this->influenceFactors[$type] = $factor;
     }
 
     public function removeInfluenceFactor($type): void {
-        if ($type > 0 && $type <= 14) {
-            if (isset($this->influenceFactors[$type])) {
-                $this->influenceScore -= $this->influenceFactors[$type];
-                unset($this->influenceFactors[$type]);
+        if ($type instanceof InfluenceFactor) {
+            $_type = $type->getInfluenceType();
+        } else {
+            $_type = $type;
+        }
+        if ($_type > 0 && $_type <= 14) {
+            if (isset($this->influenceFactors[$_type])) {
+                $this->influenceScore -= $this->influenceFactors[$_type];
+                unset($this->influenceFactors[$_type]);
             }
         }
     }
@@ -34,7 +48,7 @@ class AdjustmentFactor implements IAdjustmentFactor {
         return $this->influenceFactors;
     }
 
-    public function recalculateInfluenceScore(): int {
+    public function calculateInfluenceScore(): int {
         $influence = 0;
         if (sizeof($this->influenceFactors) > 0) {
             foreach ($this->influenceFactors as $factor) {
@@ -46,17 +60,17 @@ class AdjustmentFactor implements IAdjustmentFactor {
     }
 
     public function setInfluenceFactors(array $factors) : void {
-        foreach ($this->influenceFactors as $factor) {}
+        foreach ($this->influenceFactors as $type => $factor) {
+            if ($factor instanceof InfluenceFactor) {
+                $this->addInfluenceFactorByObject($factor);
+            } else {
+                $this->addInfluenceFactorByValue($type, $factor);
+            }
+        }
     }
 
     public function getInfluenceScore() : int {
         return $this->influenceScore;
-    }
-
-    private function calculateInfluenceScore() : int {
-        // TODO: implement this
-        $score = 0;
-        return $score;
     }
 }
 

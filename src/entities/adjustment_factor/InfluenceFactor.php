@@ -1,6 +1,7 @@
 <?php
 namespace Point_Calc_Php\Entities\Adjustment_Factor;
 
+use InvalidArgumentException;
 use Point_Calc_Php\Enums\InfluenceType;
 
 class InfluenceFactor {
@@ -22,6 +23,8 @@ class InfluenceFactor {
     public function setInfluenceType($type) {
         if (InfluenceType::isValidValue($type)) {
             $this->value = $type;
+        } else {
+            throw new InvalidArgumentException("Invalid type. Try to stick with types listed on InfluenceType enum.");
         }
     }
 
