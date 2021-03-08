@@ -3,8 +3,8 @@
         verbose="true"
         stopOnFailure="false">
     <testsuites>
-        <testsuite name="TDD">
-            <directory>tests</directory>
+        <testsuite name="Project Root Test Suite">
+            <directory>./tests/Point_Calc_Php</directory>
         </testsuite>
     </testsuites>
 </phpunit>
