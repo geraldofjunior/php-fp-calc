@@ -23,6 +23,7 @@ class MysqlConnection extends Connection {
             die("Database connection failed");
         }
     }
+    
     public function getConfig() : void {
 
     }
