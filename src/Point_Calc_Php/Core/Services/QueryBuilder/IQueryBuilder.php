@@ -1,5 +1,5 @@
 <?php
-namespace Point_Calc_Php\Core\Services\Database;
+namespace Point_Calc_Php\Core\Services\QueryBuilder;
 
 interface IQueryBuilder {
     public function insert($values);
