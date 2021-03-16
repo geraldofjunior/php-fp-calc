@@ -1,7 +1,6 @@
 <?php
 namespace Point_Calc_Php\Core\Services\Database;
 
-use Exception;
 use InvalidArgumentException;
 
 class Config {
@@ -13,18 +12,24 @@ class Config {
     private string $dbDriver;
 
     public function __construct(?string $file) {
-        $_file = $file ?? 'config.php';
+        $this->readIniFile($file);
+    }
+
+    public function readIniFile(?string $file) {
+        $_file = $file ?? 'db.ini';
         if (file_exists($_file)) {
-            include_once($_file);
-            $this->dbServer = $config['server'];
-            $this->dbPort = $config['port'];
-            $this->dbUserName = $config['user'];
-            $this->dbPassword = $config['password'];
-            $this->dbDriver = $config['driver'];
+            $config = parse_ini_file($_file);
+
+            $this->dbServer   = $config['database']['server'];
+            $this->dbPort     = $config['database']['port'];
+            $this->dbUserName = $config['database']['user'];
+            $this->dbPassword = $config['database']['password'];
+            $this->dbDriver   = $config['database']['driver'];
+            $this->dbDatabase = $config['database']['schema'];
         } else {
             $this->dbDriver = 'cookie';
-            throw new Exception("Database configuration file not found. Check if \"".$file."\" exists and it is on correct place. Using cookies instead.");
-        }        
+            throw new InvalidArgumentException("Database configuration file not found. Check if \"".$file."\" exists and it is on correct place. Using cookies instead.");
+        }
     }
 
     /** Getters without setters because these configurations is read-only runtime. */

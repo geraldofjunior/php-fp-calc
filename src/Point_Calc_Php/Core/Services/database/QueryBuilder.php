@@ -1,11 +1,15 @@
 <?php
-namespace Point_Calc_Php\Core\Services\QueryBuilder;
+namespace Point_Calc_Php\Core\Services\Database;
 
-class QueryBuilder implements IQueryBuilder {
+use PDOStatement, PDO;
+use Error;
 
+class QueryBuilder {
     private $params = [];
+    ////private PDOStatement $query;
+    private PDO $connection;
 
-    public function __call($name, $args) {
+    public function __call(string $name, array $args) {
         $params = $args[0];
 
         if (count($args) > 1) {
@@ -14,7 +18,21 @@ class QueryBuilder implements IQueryBuilder {
         $this->params[$name] = $params;
     }
 
-    public function insert($values) {
+    public function setConnection(Connection $conn) {
+        $this->connection = $conn->getConnection();
+    }
+
+    //TODO: Terminar esse método
+    public function insert(string $table, array $data) {
+        if (isset($this->connection)) {
+            $statement = $this->connection->prepare("INSERT INTO <table> (<columns>) VALUES (<values>)");
+        } else {
+            throw new Error("Connection is not set for this object. Set a connection via setConnection() method and try again.");
+        }
+    }
+
+
+    /*public function insert($values) {
         $sql  = "INSERT INTO "; 
         $sql .= isset($this->params['table']) ? $this->params['table'] : '<table>';
         $sql .= '(' . isset($this->params['fields']) ? implode(', ', $this->params['fields']) : '<fields>';
@@ -68,6 +86,6 @@ class QueryBuilder implements IQueryBuilder {
                 // if ()
             }
         }
-    }
+    }*/
 }
 ?>

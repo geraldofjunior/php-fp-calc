@@ -1,10 +1,26 @@
 <?php
 namespace Point_Calc_Php\Core\Services\Database;
 
+use PDO;
+use PDOStatement;
+
 abstract class Connection {
-    public abstract function connect(): void; // This varies from driver to driver
-    public abstract function getConfig() : void;
-    public abstract function executeCommand(string $command): void;
-    public abstract function getData(string $command): array;
+    private static Config $config;
+    protected static PDO $connection;
+
+    public abstract static function connect(): PDO;
+    public abstract static function disconnect(): void;
+    public abstract function executeCommand(string | PDOStatement $command): bool;
+    public abstract function getData(string | PDOStatement $command): array;
+
+    public function getConfig(?string $path) : Config {
+        if (!isset(self::$config))
+            self::$config = new Config($path) ?? new Config(null);
+        return self::$config;
+    }
+
+    public static function getConnection() {
+        return self::$connection ?? self::connect();
+    }
 }
 ?>

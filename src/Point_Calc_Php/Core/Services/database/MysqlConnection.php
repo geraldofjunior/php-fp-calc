@@ -3,35 +3,46 @@ namespace Point_Calc_Php\Core\Services\Database;
 
 use PDO;
 use PDOException;
+use PDOStatement;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class MysqlConnection extends Connection {
-    private Config $config;
-    private PDO $connection;
+    private static PDO $connection;
 
-    public function connect(): void {
+    public static function connect(): PDO {
+        $config = parent::getConfig(null);
         try {
-            $this->connection = new PDO(
-                $this->config->getDbDriver() . 
-                ":host=" . $this->config->getDbServer() . 
-                ";dbname=" . $this->config->getDbDatabase() ,
-                $this->config->getDbUserName() ,
-                $this->config->getDbPassword()
+            self::$connection = new PDO(
+                $config->getDbDriver() . 
+                ":host="   . $config->getDbServer() . 
+                ";dbname=" . $config->getDbDatabase() ,
+                $config->getDbUserName() ,
+                $config->getDbPassword()
             );
-            $this->connected = true;
         } catch (PDOException $err) {
-            die("Database connection failed");
+            die("Database connection failed. Error: " . $err->getMessage());
         }
+        return self::$connection;
     }
-    
-    public function getConfig() : void {
+
+    public static function disconnect(): void {
+        self::$connection->disconnect;
+    }
+
+    public function executeCommand(string | PDOStatement $command): bool {
+        $_command = $command;
+        if (!($command instanceof PDOStatement)) {
+            $_command = self::$connection->prepare($command);
+        }
+        return $_command->execute();
 
     }
-    public function executeCommand(string $command): void {
-
-    }
-    public function getData(string $command): array {
-        return [];
+    public function getData(string | PDOStatement $command): array {
+        $_command = $command;
+        if (!($command instanceof PDOStatement)) {
+            $_command = self::$connection->prepare($command);
+        }
+        return $_command->fetch();
     }
     public function __construct() {
         $this->config = new Config(null);
