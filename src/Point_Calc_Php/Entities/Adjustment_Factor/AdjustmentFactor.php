@@ -1,7 +1,11 @@
 <?php
 namespace Point_Calc_Php\Entities\Adjustment_Factor;
 
+use Point_Calc_Php\Core\Services\Database\Connection;
+use PDO;
+
 class AdjustmentFactor implements IAdjustmentFactor {
+    private int $id;
     private $influenceFactors = [];
     private int $influenceScore = 0;
 
@@ -71,6 +75,17 @@ class AdjustmentFactor implements IAdjustmentFactor {
 
     public function getInfluenceScore() : int {
         return $this->influenceScore;
+    }
+
+    public function load(int $id) : void {
+        $conn = Connection::getConnection();
+        $statement = $conn->prepare("SELECT type, value FROM adjustment_factors WHERE project_id = :id");
+        $statement->bindParam(":id", $id);
+        $factors = $statement->fetchAll(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT, 0);
+    }
+
+    public function save() : void {
+
     }
 }
 

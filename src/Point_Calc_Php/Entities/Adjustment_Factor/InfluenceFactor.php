@@ -2,11 +2,11 @@
 namespace Point_Calc_Php\Entities\Adjustment_Factor;
 
 use InvalidArgumentException;
+use Point_Calc_Php\Core\Services\Database\Connection;
 use Point_Calc_Php\Enums\InfluenceType;
 
-//require "src\enums\InfluenceType.enum.php";
-
 class InfluenceFactor {
+    private int $id;
     private int $type;
     private int $value;
 
@@ -42,5 +42,4 @@ class InfluenceFactor {
         $this->type = $this->setInfluenceType($type) ?? 0;
         $this->value = $this->setInfluenceValue($value) ?? 0;
     }
-
 }

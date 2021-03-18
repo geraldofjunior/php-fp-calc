@@ -8,6 +8,9 @@ interface IAdjustmentFactor {
     public function setInfluenceFactors(array $factors) : void;
     public function calculateInfluenceScore(): int;
     public function getInfluenceScore() : int;
+    // Database functions
+    public function load(int $id) : void;
+    public function save() : void;
 }
 
 ?>
