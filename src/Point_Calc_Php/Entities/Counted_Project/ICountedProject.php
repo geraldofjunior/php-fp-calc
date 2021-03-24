@@ -5,8 +5,8 @@ use Point_Calc_Php\Entities\Adjustment_Factor\IAdjustmentFactor;
 use Point_Calc_Php\Entities\Counted_Function\ICountedFunction;
 
 interface ICountedProject {
-    public function addFunction(ICountedFunction $function);
-    public function removeFunction(ICountedFunction $function);
+    public function addFunction(ICountedFunction $function):ICountedProject;
+    public function removeFunction(ICountedFunction $function):ICountedProject;
     public function getFunction(string $name):ICountedFunction;
     public function getAllFunctions() : array;
     public function getProjectType():int;
@@ -15,10 +15,10 @@ interface ICountedProject {
     public function getEstimatedTime(): int;
     public function getEstimatedFunctionPoints(): int;
     public function getAdjustmentFactors():IAdjustmentFactor;
-    public function addAdjustmentFactor(int $type, int $value):void;
-    public function removeAdjustmentFactor(int $type);
+    public function addAdjustmentFactor(int $type, int $value):ICountedProject;
+    public function removeAdjustmentFactor(int $type):ICountedProject;
     public function getName():string;
-    public function setName(string $name);
-    public function setAdjustmentFactors(array $influences);
+    public function setName(string $name):ICountedProject;
+    public function setAdjustmentFactors(array $influences):ICountedProject;
 }
 ?>

@@ -4,7 +4,6 @@ namespace Point_Calc_Php\Entities\Adjustment_Factor;
 use Point_Calc_Php\Core\Services\Database\Connection;
 use Point_Calc_Php\Enums\InfluenceType;
 
-// Intellephense "forces" me to explicitly declare PHP built-in classes
 use InvalidArgumentException, PDO; 
 class InfluenceFactor {
     private int $factorId;
