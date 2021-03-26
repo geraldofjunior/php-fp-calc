@@ -7,6 +7,8 @@ use Point_Calc_Php\Entities\Counted_Function\ICountedFunction;
 use Point_Calc_Php\Core\Services\Database\Connection;
 use Point_Calc_Php\Enums\ProjectType;
 
+use PDO;
+
 class CountedProject implements ICountedProject {
     private int $projectId;
     private int $ownerId;
@@ -152,7 +154,7 @@ class CountedProject implements ICountedProject {
             $query->bindValue(":count", $this->estimatedCount);
             $query->bindValue(":time", $this->estimatedTime);
             $query->bindValue(":unit_time", $this->timePerFP);
-            $query->bindValue(":unit_price", $this-);
+            $query->bindValue(":unit_price", $this->pricePerFP);
             $query->bindValue(":id", $this->projectId);            
             $query->execute();
         } else {
@@ -186,7 +188,7 @@ class CountedProject implements ICountedProject {
         $query->bindValue(":count", $this->estimatedCount);
         $query->bindValue(":time", $this->estimatedTime);
         $query->bindValue(":unit_time", $this->timePerFP);
-        $query->bindValue(":unit_price", $this-);
+        $query->bindValue(":unit_price", $this->pricePerFP0);
         $query->execute();
 
         $this->factorId = $conn->lastInsertId();
