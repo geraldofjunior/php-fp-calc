@@ -188,7 +188,7 @@ class CountedProject implements ICountedProject {
         $query->bindValue(":count", $this->estimatedCount);
         $query->bindValue(":time", $this->estimatedTime);
         $query->bindValue(":unit_time", $this->timePerFP);
-        $query->bindValue(":unit_price", $this->pricePerFP0);
+        $query->bindValue(":unit_price", $this->pricePerFP);
         $query->execute();
 
         $this->factorId = $conn->lastInsertId();
