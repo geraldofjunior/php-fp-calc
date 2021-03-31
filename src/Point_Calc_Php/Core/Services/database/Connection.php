@@ -4,7 +4,7 @@ namespace Point_Calc_Php\Core\Services\Database;
 use PDO;
 use PDOStatement;
 
-abstract class Connection {
+abstract class Connection { // Context
     private static Config $config;
     protected static PDO $connection;
 
@@ -13,7 +13,7 @@ abstract class Connection {
     public abstract function executeCommand(string | PDOStatement $command): bool;
     public abstract function getData(string | PDOStatement $command): array;
 
-    public function getConfig(?string $path) : Config {
+    public static function getConfig(?string $path) : Config {
         if (!isset(self::$config))
             self::$config = new Config($path) ?? new Config(null);
         return self::$config;
@@ -22,5 +22,19 @@ abstract class Connection {
     public static function getConnection() {
         return self::$connection ?? self::connect();
     }
+
+    // Trying to implement some strategy
+
+    private IDatabase $database;
+
+    public function __construct(?IDatabase $database) {
+        $this->database = $database;        
+    }
+
+    public function setDatabase(IDatabase $database) {
+        $this->database = $database;
+    }
+
+
 }
 ?>
