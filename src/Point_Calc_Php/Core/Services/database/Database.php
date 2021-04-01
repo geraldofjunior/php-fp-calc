@@ -7,6 +7,10 @@ abstract class Database implements IDatabase {
     protected PDO $connection;
     
     public abstract function connect():IDatabase;
+    
+    public function disconnect():void {
+        unset($this->connection);
+    }
 
     public function create(string $table, array $valueList) {
         $fieldList = array_keys($valueList);
@@ -20,12 +24,19 @@ abstract class Database implements IDatabase {
         $sql = "SELECT ";
         $sql .= isset($columns) ? implode(", ", $columns) : "*";
         $sql .= " FROM " . $table . " WHERE " . $this->generateWhere($conditions);
+        return $this->getData($sql, $conditions);
     }
 
     public function save(string $table, array $newData, array $conditions) {
+        $sql = "UPDATE " . $table . 
+               " SET " . $this->generateSet($newData) . 
+               " WHERE " . $this->generateWhere($conditions);
+        return $this->execute($sql, $newData, $conditions);
     }
 
     public function delete(string $table, array $conditions) {
+        $sql = "DELETE FROM " . $table . " WHERE " . $this->generateWhere($conditions);
+        return $this->execute($sql, null, $conditions);
     }
 
     protected function generateValueList(array $fieldList) {
@@ -58,13 +69,20 @@ abstract class Database implements IDatabase {
         return substr($list, 0, strlen($list) - 4);
     }
 
-    protected function execute(string $sql, array $valueList) {
+    protected function execute(string $sql, ?array $valueList, ?array $conditionList = null) {
         $statement = $this->connection->prepare($sql);
 
         foreach ($valueList as $field => $value) {
             $statement->bindValue(":".$field, $value);
+        }
+
+        if (isset($conditionList)) {
+            foreach($conditionList as $conditionField => $conditionValue) {
+                $statement->bindValue(":".$conditionField."_cond", $conditionValue);
+            }
         }        
-        $statement->execute();
+
+        return $statement->execute();
     }
 
     public function getData(string $command, array $conditions): array {
@@ -75,11 +93,5 @@ abstract class Database implements IDatabase {
         }
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function executeCommand(string $command): bool {      
-        $_command = self::$connection->prepare($command);
-        
-        return $_command->execute();
     }
 }
