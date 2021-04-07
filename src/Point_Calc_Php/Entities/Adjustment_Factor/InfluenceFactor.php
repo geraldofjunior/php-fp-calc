@@ -4,7 +4,8 @@ namespace Point_Calc_Php\Entities\Adjustment_Factor;
 use Point_Calc_Php\Core\Services\Database\Connection;
 use Point_Calc_Php\Enums\InfluenceType;
 
-use InvalidArgumentException, PDO; 
+use InvalidArgumentException;
+
 class InfluenceFactor {
     private int $factorId;
     private int $projectId;
@@ -46,7 +47,17 @@ class InfluenceFactor {
     }
 
     public function save() {
+        $condition = ["factor_id" => $this->factorId];
+        $values = ["type" => $this->type,
+                   "value" => $this->value];
         $conn = Connection::getConnection();
+        if (!isset($this->factorId)) {
+            $this->factorId = $conn->create("adjustment_factors", $values);
+        } else {
+            $conn->save("adjustment_factors", $values, $condition);
+        }
+        /*
+
         if (isset($this->factorId)) {
             $query = $conn->prepare("UPDATE adjustment_factors SET type = :type, value = :value WHERE factor_id = :id");
             $query->bindValue(":type", $this->type);
@@ -55,11 +66,11 @@ class InfluenceFactor {
             $query->execute();
         } else {
             $this->create($conn);
-        }
+        }*/
         return $this;
     }
 
-    private function create(PDO &$conn) {
+    /*private function create(PDO &$conn) {
         $conn = Connection::getConnection();
         
         $query = $conn->prepare("INSERT INTO adjustment_factors (project_id, type, value) VALUES (:project_id, :type, :value)");
@@ -69,14 +80,12 @@ class InfluenceFactor {
         $query->execute();
 
         $this->factorId = $conn->lastInsertId();
-    }
+    }*/
 
     public function remove() {
+        $condition = ["factor_id" => $this->factorId];
         $conn = Connection::getConnection();
-
-        $query = $conn->prepare("DELETE FROM adjustment_factors WHERE factor_id = :id");
-        $query->bindValue(":id", $this->factorId);
-        $query->execute();
+        $conn->delete("adjustment_factors", $condition);
     }
 
     public function getInfluenceValue() : int { return $this->value;     }

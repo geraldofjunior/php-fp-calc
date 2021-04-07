@@ -12,6 +12,10 @@ abstract class Database implements IDatabase {
         unset($this->connection);
     }
 
+    public function isConnected(): bool {
+        return isset($this->connection);
+    }
+
     public function create(string $table, array $valueList) {
         $fieldList = array_keys($valueList);
         $sql = "INSERT INTO " . $table 
@@ -35,7 +39,7 @@ abstract class Database implements IDatabase {
     }
 
     public function delete(string $table, array $conditions) {
-        $sql = "DELETE FROM " . $table . " WHERE " . $this->generateWhere($conditions);
+        $sql = "DELETE FROM $table WHERE " . $this->generateWhere($conditions);
         return $this->execute($sql, null, $conditions);
     }
 
@@ -55,7 +59,7 @@ abstract class Database implements IDatabase {
         return substr($list, 0, strlen($list) - 2);
     }
 
-    // TODO: Turn this method yet more generic, adding more conditions than just AND
+    // TODO: Turn this method more generic, adding more conditions than just AND
     protected function generateWhere(array $valueList) {
         $list = "";
         foreach ($valueList as $field => $value) {

@@ -11,7 +11,7 @@ class Config {
     private string $dbDatabase;
     private string $dbDriver;
 
-    public function __construct(?string $file) {
+    public function __construct(?string $file = null) {
         $this->readIniFile($file);
     }
 
@@ -32,11 +32,16 @@ class Config {
         }
     }
 
-    /** Getters without setters because these configurations is read-only runtime. */
+    /** Getters without setters because these configurations is read-only runtime.
+     */
 
-    private function __set($name, $value) {}
+    public function __set() {
+        // Does nothing. Really. The configs is read-only
+    }
 
-    /** Class methods are only being accessed via public getters */
+    /** Class methods are only being accessed via public getters
+     * @param $field
+     */
 
     public function __get($field) {
         if (!property_exists($this, $field)) {

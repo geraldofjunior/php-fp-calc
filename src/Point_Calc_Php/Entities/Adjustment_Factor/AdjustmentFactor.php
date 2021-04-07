@@ -3,22 +3,22 @@ namespace Point_Calc_Php\Entities\Adjustment_Factor;
 
 use Point_Calc_Php\Core\Services\Database\Connection;
 use Point_Calc_Php\Enums\InfluenceType;
-use PDO;
 
 class AdjustmentFactor implements IAdjustmentFactor {
     private int $projectId;
-    private $influenceFactors = [];
+    private array $influenceFactors = [];
     private int $influenceScore = 0;
 
     public function __construct() {
     }
 
-    public function addInfluenceFactor($type, ?int $value): void {
+    public function addInfluenceFactor($type, ?int $value): IAdjustmentFactor {
         if ($type instanceof InfluenceFactor) {
             $this->addInfluenceFactorByObject($type);
         } else {
             $this->addInfluenceFactorByValue($type, $value);
         }
+        return $this;
     }
 
     private function addInfluenceFactorByValue(int $type, ?int $value): void {
@@ -41,18 +41,22 @@ class AdjustmentFactor implements IAdjustmentFactor {
         $this->influenceFactors[$type] = $factor;
     }
 
-    public function removeInfluenceFactor($type): void {
+    public function removeInfluenceFactor($type): IAdjustmentFactor {
         if ($type instanceof InfluenceFactor) {
             $_type = $type->getInfluenceType();
         } else if (InfluenceType::isValidValue($type)) {
             $_type = $type;
-        } else return;        
+        } else {
+            return $this;
+        }
         
         if (isset($this->influenceFactors[$_type])) {
             $this->influenceScore -= $this->influenceFactors[$_type];
             $this->influenceFactors[$_type]->remove();
             unset($this->influenceFactors[$_type]);
         }
+
+        return $this;
     }
 
     public function calculateInfluenceScore(): int {
@@ -66,7 +70,7 @@ class AdjustmentFactor implements IAdjustmentFactor {
         return $influence;
     }
 
-    public function setInfluenceFactors(array $factors) : void {
+    public function setInfluenceFactors(array $factors) : IAdjustmentFactor {
         foreach ($this->influenceFactors as $type => $factor) {
             if ($factor instanceof InfluenceFactor) {
                 $this->addInfluenceFactorByObject($factor);
@@ -74,29 +78,36 @@ class AdjustmentFactor implements IAdjustmentFactor {
                 $this->addInfluenceFactorByValue($type, $factor);
             }
         }
+        return $this;
     }
 
-    public function loadInfluenceFactors(int $projectId) : void {
+    public function loadInfluenceFactors(int $projectId) : IAdjustmentFactor {
         $this->projectId = $projectId;
         $conn = Connection::getConnection();
+
+        $condition = [ "project_id" => $this->projectId ];
+        $factors = $conn->load("adjustment_factors", [ "type", "value" ], $condition );
+
+        /*
         $statement = $conn->prepare("SELECT type, value FROM adjustment_factors WHERE project_id = :id");
         $statement->bindParam(":id", $projectId);
         $factors = $statement->fetchAll(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT, 0);
-
+        */
         foreach($factors as $type => $value) {
             $this->addInfluenceFactorByValue($type, $value);
         }
+
+        return $this;
     }
 
-    public function saveAllInfluenceFactors() : void {
+    public function saveAllInfluenceFactors() : IAdjustmentFactor {
         foreach ($this->influenceFactors as $type => $factor) {
             $factor->save();
         }
+        return $this;
     }
 
     public function getInfluenceScore()  : int   { return $this->influenceScore; }
     public function getInfluenceFactors(): array { return $this->influenceFactors; }
     public function getProjectId()       : int   { return $this->projectId; }
 }
-
-?>

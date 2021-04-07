@@ -1,12 +1,9 @@
 <?php
 namespace Point_Calc_Php\Core\Services\Database;
 
-use PDO;
-use PDOException;
-use PDOStatement;
+use PDO, PDOException;
 
 class MysqlDatabase extends Database implements IDatabase {
-    private PDO $connection;
     private Config $config;
 
     public function connect() : IDatabase {
@@ -25,14 +22,8 @@ class MysqlDatabase extends Database implements IDatabase {
         return $this;
     }
 
-    public function disconnect(): void {
-        $this->connection = null;
-    }
-
     public function __construct() {
-        $this->config = new Config(null);
-    }
-
-    
+        $this->config = new Config();
+    }    
 }
 ?>

@@ -7,13 +7,13 @@ use Point_Calc_Php\Entities\Counted_Function\ICountedFunction;
 use Point_Calc_Php\Core\Services\Database\Connection;
 use Point_Calc_Php\Enums\ProjectType;
 
-use PDO;
+//use PDO;
 
 class CountedProject implements ICountedProject {
     private int $projectId;
     private int $ownerId;
     private string $name;
-    private $function = [];
+    private array $function = [];
     private IAdjustmentFactor $adjustmentFactor;
     private int $estimatedTime = 0;
     private float $estimatedPrice = 0;
@@ -75,7 +75,7 @@ class CountedProject implements ICountedProject {
         } else {
             $this->estimatedCount = 0;
         }
-        $influence = $this->adjustmentFactor->getInfluenceScore();
+        //$influence = $this->adjustmentFactor->getInfluenceScore();
         return $this->estimatedCount;
     }
 
@@ -88,7 +88,7 @@ class CountedProject implements ICountedProject {
         return $this;
     }
 
-    public function setprojectType(int $projectType):ICountedProject { 
+    public function setProjectType(int $projectType):ICountedProject {
         if (ProjectType::isValidValue($projectType)) {
             $this->projectType = $projectType;
         }
@@ -106,8 +106,8 @@ class CountedProject implements ICountedProject {
     }
 
     // Getters
-    public function getFunction(string $name):ICountedFunction {
-        $functionName = "";
+    public function getFunction(string $name): ICountedFunction | null {
+        //$functionName = "";
         if (is_nan($name)) {
             foreach ($this->function as $currentFunction) {
                 $functionName = $currentFunction->getName();
@@ -136,6 +136,23 @@ class CountedProject implements ICountedProject {
 
     public function save() : ICountedProject {
         $conn = Connection::getConnection();
+        $data = [ "user_id" => $this->ownerId,
+                  "name" => $this->name,
+                  "estimated_price" => $this->estimatedPrice,
+                  "estimated_count" => $this->estimatedCount,
+                  "estimated_time" => $this->estimatedTime,
+                  "time_per_fp" => $this->timePerFP,
+                  "price_per_fp" => $this->pricePerFP
+            ];
+        $conditions = [ "project_id" => $this->projectId];
+        if (!isset($this->projectId)) {
+            $conn->create("projects", $data);
+        } else {
+            $conn->save("projects", $data, $conditions);
+        }
+
+        /*
+        $conn = Connection::getConnection();
         if (isset($this->projectId)) {
             $sql = "UPDATE projects SET " .
                         "user_id = :owner, " .
@@ -159,11 +176,12 @@ class CountedProject implements ICountedProject {
             $query->execute();
         } else {
             $this->create($conn);
-        }
+        }*/
         return $this;
     }
 
-    private function create(PDO &$conn) {
+    /*private function create() {
+
         $sql = "INSERT INTO projects (" . 
                     "user_id, " . 
                     "name, " .
@@ -192,14 +210,16 @@ class CountedProject implements ICountedProject {
         $query->execute();
 
         $this->factorId = $conn->lastInsertId();
-    }
+
+    }*/
 
     public function remove() {
         $conn = Connection::getConnection();
-
+        $condition = [ "project_id" => $this->projectId];
+        $conn->delete("projects", $condition);
+        /*
         $query = $conn->prepare("DELETE FROM projects WHERE project_id = :id");
         $query->bindValue(":id", $this->projectId);
-        $query->execute();
+        $query->execute();*/
     }
 }
-?>

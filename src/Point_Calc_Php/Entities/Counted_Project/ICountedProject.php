@@ -7,10 +7,10 @@ use Point_Calc_Php\Entities\Counted_Function\ICountedFunction;
 interface ICountedProject {
     public function addFunction(ICountedFunction $function):ICountedProject;
     public function removeFunction(ICountedFunction $function):ICountedProject;
-    public function getFunction(string $name):ICountedFunction;
+    public function getFunction(string $name):ICountedFunction | null;
     public function getAllFunctions() : array;
     public function getProjectType():int;
-    public function setprojectType(int $projectType);
+    public function setProjectType(int $projectType);
     public function getEstimatedPrice(): float;
     public function getEstimatedTime(): int;
     public function getEstimatedFunctionPoints(): int;

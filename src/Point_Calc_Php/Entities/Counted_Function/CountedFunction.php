@@ -7,7 +7,7 @@ class CountedFunction implements ICountedFunction {
     protected int $functionPoints = 0;
     protected int $complexity = 0;
     protected int $dataTypes;
-    protected int $elementaryTypes; // Can be register type (EIF/ILF) or elementary proccess (EI/EQ/EO)
+    protected int $elementaryTypes; // Can be register type (EIF/ILF) or elementary process (EI/EQ/EO)
 
     public function getName(): string {
         return $this->name;
@@ -40,12 +40,11 @@ class CountedFunction implements ICountedFunction {
         return 1;
     }
 
-    public function __construct(?string $name) {
-        $this->name = $name;
+    public function __construct(?string $name = null) {
+        $this->name = $name ?? "";
     }
 
     public function getFunctionId() : int {
         return $this->functionId;
     }
 }
-?>

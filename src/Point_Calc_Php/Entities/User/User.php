@@ -143,6 +143,3 @@ class User implements IUser {
         $query->execute();
     }
 }
-
-
-?>
