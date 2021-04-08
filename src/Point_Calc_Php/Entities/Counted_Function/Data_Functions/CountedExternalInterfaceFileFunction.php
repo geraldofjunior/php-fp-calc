@@ -28,24 +28,17 @@ class CountedExternalInterfaceFileFunction extends CountedFunction {
             } else {
                 return Complexity::MEDIUM;
             }
+        } else {
+            return Complexity::LOW;
         }
     }
 
     protected function calculateContribution(): int {
-        switch ($this->complexity) {
-            case Complexity::LOW: 
-                return 5; 
-                break;
-            case Complexity::MEDIUM: 
-                return 7; 
-                break;
-            case Complexity::HIGH: 
-                return 10; 
-                break;
-            default: 
-                return 0;
-                break;
-        }
+        return match ($this->complexity) {
+            Complexity::LOW => 5,
+            Complexity::MEDIUM => 7,
+            Complexity::HIGH => 10,
+            default => 0,
+        };
     }
 }
-?>

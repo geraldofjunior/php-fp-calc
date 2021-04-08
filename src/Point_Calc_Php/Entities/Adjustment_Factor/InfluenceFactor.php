@@ -14,39 +14,36 @@ class InfluenceFactor {
 
     public function __construct() {}
 
-    public function setInfluenceValue(int $value) {
-        if (is_nan($value)) {
-            $this->value = 0;
-        } else if ($value > 5) {
-            $this->value = 5;
-        } else if ($value < 0) {
-            $this->value = 0;
-        } else {
-            $this->value = $value;
-        }
+    public function setInfluenceValue(int $value) : InfluenceFactor {
+        $this->value = match (true) {
+            $value > 5 => 5,
+            $this->value < 0 => 0,
+            default => $value,
+        };
+
         return $this;
     }
 
-    public function setInfluenceType($type) {
+    public function setInfluenceType($type) : InfluenceFactor {
         if (InfluenceType::isValidValue($type)) {
-            $this->value = $type;
+            $this->type = $type;
         } else {
             throw new InvalidArgumentException("Invalid type. Try to stick with types listed on InfluenceType enum.");
         }
         return $this;
     }
 
-    public function setProjectId(int $id) {
+    public function setProjectId(int $id) : InfluenceFactor {
         $this->projectId = $id;
         return $this;
     }
 
-    public function setFactorId(int $id) {
+    public function setFactorId(int $id) : InfluenceFactor {
         $this->factorId = $id;
         return $this;
     }
 
-    public function save() {
+    public function save() : InfluenceFactor {
         $condition = ["factor_id" => $this->factorId];
         $values = ["type" => $this->type,
                    "value" => $this->value];
@@ -56,33 +53,10 @@ class InfluenceFactor {
         } else {
             $conn->save("adjustment_factors", $values, $condition);
         }
-        /*
-
-        if (isset($this->factorId)) {
-            $query = $conn->prepare("UPDATE adjustment_factors SET type = :type, value = :value WHERE factor_id = :id");
-            $query->bindValue(":type", $this->type);
-            $query->bindValue(":value", $this->value);
-            $query->bindParam(":id", $this->id);
-            $query->execute();
-        } else {
-            $this->create($conn);
-        }*/
         return $this;
     }
 
-    /*private function create(PDO &$conn) {
-        $conn = Connection::getConnection();
-        
-        $query = $conn->prepare("INSERT INTO adjustment_factors (project_id, type, value) VALUES (:project_id, :type, :value)");
-        $query->bindValue(":type", $this->type ?? null);
-        $query->bindValue(":value", $this->value ?? null);
-        $query->bindValue(":project_id", $this->projectId);
-        $query->execute();
-
-        $this->factorId = $conn->lastInsertId();
-    }*/
-
-    public function remove() {
+    public function remove() : void {
         $condition = ["factor_id" => $this->factorId];
         $conn = Connection::getConnection();
         $conn->delete("adjustment_factors", $condition);

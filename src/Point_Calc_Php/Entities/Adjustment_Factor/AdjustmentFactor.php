@@ -81,18 +81,13 @@ class AdjustmentFactor implements IAdjustmentFactor {
         return $this;
     }
 
-    public function loadInfluenceFactors(int $projectId) : IAdjustmentFactor {
-        $this->projectId = $projectId;
+    public function loadInfluenceFactors(int $id) : IAdjustmentFactor {
+        $this->projectId = $id;
         $conn = Connection::getConnection();
 
         $condition = [ "project_id" => $this->projectId ];
         $factors = $conn->load("adjustment_factors", [ "type", "value" ], $condition );
 
-        /*
-        $statement = $conn->prepare("SELECT type, value FROM adjustment_factors WHERE project_id = :id");
-        $statement->bindParam(":id", $projectId);
-        $factors = $statement->fetchAll(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT, 0);
-        */
         foreach($factors as $type => $value) {
             $this->addInfluenceFactorByValue($type, $value);
         }
@@ -101,7 +96,7 @@ class AdjustmentFactor implements IAdjustmentFactor {
     }
 
     public function saveAllInfluenceFactors() : IAdjustmentFactor {
-        foreach ($this->influenceFactors as $type => $factor) {
+        foreach ($this->influenceFactors as $factor) {
             $factor->save();
         }
         return $this;

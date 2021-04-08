@@ -7,7 +7,7 @@ interface ICountedFunction {
     public function getComplexity():int;
     public function getFunctionId(): int;
     
-    public function setName(string $name);
-    public function setContributionData(int $dataTypes, int $registerTypes);
+    public function setName(string $name) : ICountedFunction;
+    public function setContributionData(int $dataTypes, int $registerTypes) : ICountedFunction;
 }
 ?>

@@ -21,4 +21,3 @@ interface ICountedProject {
     public function setName(string $name):ICountedProject;
     public function setAdjustmentFactors(array $influences):ICountedProject;
 }
-?>

@@ -30,11 +30,6 @@ abstract class Connection { // Context
 
         return self::$connection;
     }
-    public static function disconnect(): void {
-        self::$connection->disconnect();
-    }/*
-    public abstract function executeCommand(string | PDOStatement $command): bool;
-    public abstract function getData(string | PDOStatement $command): array;*/
 
     public static function getConfig(?string $path = null) : Config {
         if (!isset(self::$config))
@@ -42,7 +37,7 @@ abstract class Connection { // Context
         return self::$config;
     }
 
-    public static function getConnection() {
+    public static function getConnection() : IDatabase {
         return self::$connection ?? self::connect();
     }
 }

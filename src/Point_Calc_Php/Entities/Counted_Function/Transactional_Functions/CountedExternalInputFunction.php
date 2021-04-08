@@ -1,9 +1,13 @@
 <?php
 namespace Point_Calc_Php\Entities\Counted_Function\Transactional_Functions;
+
 use Point_calc_Php\Enums\Complexity as Complexity; 
 use Point_Calc_Php\Entities\Counted_Function\CountedFunction;
+use Exception;
 
 class CountedExternalInputFunction extends CountedFunction {
+
+    // TODO: Refactor this method to make an more elegant solution
     protected function calculateComplexity(): int {
         if ($this->elementaryTypes < 2) {
             if ($this->dataTypes < 15) {
@@ -25,24 +29,17 @@ class CountedExternalInputFunction extends CountedFunction {
             } else {
                 return Complexity::HIGH;
             }
+        } else {
+            return Complexity::LOW;
         }
     }
 
     protected function calculateContribution(): int {
-        switch ($this->complexity) {
-            case Complexity::LOW: 
-                return 3; 
-                break;
-            case Complexity::MEDIUM: 
-                return 4; 
-                break;
-            case Complexity::HIGH: 
-                return 6; 
-                break;
-            default: 
-                return 0;
-                break;
-        }
+        return match ($this->complexity) {
+            Complexity::LOW => 3,
+            Complexity::MEDIUM => 4,
+            Complexity::HIGH => 6,
+            default => 0
+        };
     }
 }
-?>

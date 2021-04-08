@@ -34,15 +34,13 @@ class Config {
 
     /** Getters without setters because these configurations is read-only runtime.
      */
-
-    public function __set() {
+    public function __set(string $name, mixed $value) {
         // Does nothing. Really. The configs is read-only
     }
 
     /** Class methods are only being accessed via public getters
      * @param $field
      */
-
     public function __get($field) {
         if (!property_exists($this, $field)) {
             throw new InvalidArgumentException("The field ".$field." does not exist.");
@@ -56,10 +54,10 @@ class Config {
         }
     }
 
-    public function getDbServer()   { return $this->dbServer; }
-    public function getDbPort()     { return $this->dbPort; }
-    public function getDbUserName() { return $this->dbUserName; }
-    public function getDbPassword() { return $this->dbPassword; }
-    public function getDbDatabase() { return $this->dbDatabase; }
-    public function getDbDriver()   { return $this->dbDriver; }
+    public function getDbServer()   : string { return $this->dbServer; }
+    public function getDbPort()     : string { return $this->dbPort; }
+    public function getDbUserName() : string { return $this->dbUserName; }
+    public function getDbPassword() : string { return $this->dbPassword; }
+    public function getDbDatabase() : string { return $this->dbDatabase; }
+    public function getDbDriver()   : string { return $this->dbDriver; }
 }

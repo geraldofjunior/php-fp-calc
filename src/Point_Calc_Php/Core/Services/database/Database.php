@@ -16,34 +16,35 @@ abstract class Database implements IDatabase {
         return isset($this->connection);
     }
 
-    public function create(string $table, array $valueList) {
+    public function create(string $table, array $valueList) : string {
         $fieldList = array_keys($valueList);
         $sql = "INSERT INTO " . $table 
                 . " (" . implode(", ", $fieldList) . ") VALUES" 
                 . " (" . $this->generateValueList($fieldList) . ")";
         $this->execute($sql, $valueList);
+        return $this->connection->lastInsertId();
     }
 
-    public function load(string $table, ?array $columns, array $conditions) {
+    public function load(string $table, ?array $columns, array $conditions) : array {
         $sql = "SELECT ";
         $sql .= isset($columns) ? implode(", ", $columns) : "*";
         $sql .= " FROM " . $table . " WHERE " . $this->generateWhere($conditions);
         return $this->getData($sql, $conditions);
     }
 
-    public function save(string $table, array $newData, array $conditions) {
+    public function save(string $table, array $newData, array $conditions) : bool {
         $sql = "UPDATE " . $table . 
                " SET " . $this->generateSet($newData) . 
                " WHERE " . $this->generateWhere($conditions);
         return $this->execute($sql, $newData, $conditions);
     }
 
-    public function delete(string $table, array $conditions) {
+    public function delete(string $table, array $conditions) : bool {
         $sql = "DELETE FROM $table WHERE " . $this->generateWhere($conditions);
         return $this->execute($sql, null, $conditions);
     }
 
-    protected function generateValueList(array $fieldList) {
+    protected function generateValueList(array $fieldList) : string {
         $list = "";
         foreach ($fieldList as $currentField) {
             $list .= ":" . $currentField . ", ";
@@ -51,7 +52,7 @@ abstract class Database implements IDatabase {
         return substr($list, 0, strlen($list) - 2);
     }
 
-    protected function generateSet(array $fieldList) {
+    protected function generateSet(array $fieldList) : string {
         $list = "";
         foreach ($fieldList as $currentField) {
             $list .= $currentField . " = :" . $currentField . ", ";
@@ -60,7 +61,7 @@ abstract class Database implements IDatabase {
     }
 
     // TODO: Turn this method more generic, adding more conditions than just AND
-    protected function generateWhere(array $valueList) {
+    protected function generateWhere(array $valueList) : string {
         $list = "";
         foreach ($valueList as $field => $value) {
             if (is_string($value)) {
@@ -73,7 +74,7 @@ abstract class Database implements IDatabase {
         return substr($list, 0, strlen($list) - 4);
     }
 
-    protected function execute(string $sql, ?array $valueList, ?array $conditionList = null) {
+    protected function execute(string $sql, ?array $valueList, ?array $conditionList = null) : bool {
         $statement = $this->connection->prepare($sql);
 
         foreach ($valueList as $field => $value) {

@@ -27,24 +27,17 @@ class CountedInternalLogicalFileFunction extends CountedFunction {
             } else {
                 return Complexity::MEDIUM;
             }
+        } else {
+            return Complexity::LOW;
         }
     }
 
     protected function calculateContribution(): int {
-        switch ($this->complexity) {
-            case Complexity::LOW: 
-                return 7; 
-                break;
-            case Complexity::MEDIUM: 
-                return 10; 
-                break;
-            case Complexity::HIGH: 
-                return 15; 
-                break;
-            default: 
-                return 0;
-                break;
-        }
+        return match ($this->complexity) {
+            Complexity::LOW => 7,
+            Complexity::MEDIUM => 10,
+            Complexity::HIGH => 15,
+            default => 0,
+        };
     }
 }
-?>

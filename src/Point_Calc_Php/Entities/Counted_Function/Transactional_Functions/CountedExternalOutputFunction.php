@@ -26,24 +26,17 @@ class CountedExternalOutputFunction extends CountedFunction {
             } else {
                 return Complexity::HIGH;
             }
+        } else {
+            return Complexity::LOW;
         }
     }
 
     protected function calculateContribution(): int {
-        switch ($this->complexity) {
-            case Complexity::LOW: 
-                return 4; 
-                break;
-            case Complexity::MEDIUM: 
-                return 5; 
-                break;
-            case Complexity::HIGH: 
-                return 7; 
-                break;
-            default: 
-                return 0;
-                break;
-        }
+        return match ($this->complexity) {
+            Complexity::LOW => 4,
+            Complexity::MEDIUM => 5,
+            Complexity::HIGH => 7,
+            default => 0,
+        };
     }
 }
-?>

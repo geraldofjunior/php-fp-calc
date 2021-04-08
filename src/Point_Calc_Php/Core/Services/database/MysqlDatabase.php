@@ -26,4 +26,3 @@ class MysqlDatabase extends Database implements IDatabase {
         $this->config = new Config();
     }    
 }
-?>

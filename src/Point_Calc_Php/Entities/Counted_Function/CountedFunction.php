@@ -6,30 +6,24 @@ class CountedFunction implements ICountedFunction {
     protected string $name = "";
     protected int $functionPoints = 0;
     protected int $complexity = 0;
-    protected int $dataTypes;
-    protected int $elementaryTypes; // Can be register type (EIF/ILF) or elementary process (EI/EQ/EO)
+    protected int $dataTypes = 0;
+    protected int $elementaryTypes = 0; // Can be register type (EIF/ILF) or elementary process (EI/EQ/EO)
 
-    public function getName(): string {
-        return $this->name;
-    }
+    public function getName(): string { return $this->name; }
+    public function getFunctionPoints(): int { return $this->functionPoints; }
+    public function getComplexity(): int { return $this->complexity; }
 
-    public function getFunctionPoints(): int {
-        return $this->functionPoints;
-    }
-
-    public function getComplexity(): int {        
-        return $this->complexity;
-    }
-
-    public function setName(string $name) {
+    public function setName(string $name) : ICountedFunction {
         $this->name = $name;
+        return $this;
     }
 
-    public function setContributionData(int $dataTypes, int $registerTypes) {
+    public function setContributionData(int $dataTypes, int $registerTypes) : ICountedFunction {
         $this->dataTypes = $dataTypes;
         $this->elementaryTypes = $registerTypes;
         $this->complexity = $this->calculateComplexity();
         $this->functionPoints = $this->calculateContribution();
+        return $this;
     }
     
     protected function calculateComplexity(): int {
@@ -40,7 +34,7 @@ class CountedFunction implements ICountedFunction {
         return 1;
     }
 
-    public function __construct(?string $name = null) {
+    public function __construct(?string $name = "") {
         $this->name = $name ?? "";
     }
 
