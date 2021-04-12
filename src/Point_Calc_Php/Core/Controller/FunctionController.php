@@ -19,8 +19,6 @@ class FunctionController extends Controller {
     }
 
     public function lookForFunction($functionIdentifier) : ICountedFunction {
-        // Aqui vai procurar a função no banco (ou sabe-se lá aonde esteja armazenada)
-        // Retorno: O objeto de função
         return new CountedFunction("");
     }
 }

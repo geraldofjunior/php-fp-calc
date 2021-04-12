@@ -1,3 +1,6 @@
-RewriteEngine on
+Options +FollowSymLinks
 
-ReWriteRule ^project/([0-9]+)$ index.php?p=$2 [nc]
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [NC,L]
