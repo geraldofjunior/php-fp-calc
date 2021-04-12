@@ -8,7 +8,7 @@ class CountedInternalLogicalFileFunction extends CountedFunction {
 
     protected function calculateComplexity(): int {
         if ($this->elementaryTypes == 1) {
-            if ($this->dataTypes > 50) {
+            if ($this->dataTypes < 50) {
                 return Complexity::MEDIUM;
             } else {
                 return Complexity::LOW;

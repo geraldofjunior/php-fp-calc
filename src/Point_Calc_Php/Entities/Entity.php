@@ -1,12 +1,15 @@
 <?php
 namespace Point_Calc_Php\Entities;
 
-use InvalidArgumentException, PDOStatement;
+use InvalidArgumentException;
 use Point_Calc_Php\Core\Services\Database\Connection;
+use Point_Calc_Php\Enums\Complexity;
 
 abstract class Entity {
     protected string $table;
 
+    public function __construct() {
+    }
     // TODO: Complete this class
 
     public function create(array $valueList) {
@@ -20,6 +23,8 @@ abstract class Entity {
 
     public function delete() {
     }
+
+
 
     // Forces clients to use the setter and getter
 
